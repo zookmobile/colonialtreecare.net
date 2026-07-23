@@ -88,7 +88,33 @@
     background: linear-gradient(135deg, var(--deep-green) 0%, #143d2d 100%);
     color: #ffffff;
     padding: 80px 5%;
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-text {
+    flex: 1 1 460px;
+    text-align: left;
+  }
+
+  .hero-image {
+    flex: 1 1 400px;
     text-align: center;
+  }
+
+  .hero-image img {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
   }
 
   .hero h1 {
@@ -98,9 +124,22 @@
 
   .hero p {
     font-size: 1.2rem;
-    max-width: 600px;
-    margin: 0 auto 30px auto;
+    max-width: 500px;
+    margin: 0 0 30px 0;
     color: #e8efe9;
+  }
+
+  @media (max-width: 800px) {
+    .hero-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+    .hero-text {
+      text-align: center;
+    }
+    .hero p {
+      margin: 0 auto 30px auto;
+    }
   }
 
   .btn {
@@ -407,9 +446,16 @@
   <div class="tagline-band">A TOTAL TREE CARE COMPANY</div>
 
   <section class="hero" id="home">
-    <h1>Tree Removal Service in Chesapeake, VA</h1>
-    <p>Colonial Tree Care serves Chesapeake, VA and the greater Hampton Roads area with professional tree removal, pruning, and land management services you can rely on.</p>
-    <a href="quote.html" class="btn">Get a Quote</a>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Tree Removal Service in Chesapeake, VA</h1>
+        <p>Colonial Tree Care serves Chesapeake, VA and the greater Hampton Roads area with professional tree removal, pruning, and land management services you can rely on.</p>
+        <a href="quote.html" class="btn">Get a Quote</a>
+      </div>
+      <div class="hero-image">
+        <img src="https://raw.githubusercontent.com/zookmobile/colonialtreecare.net/main/Low%20Res%20Truck.jpeg" alt="Colonial Tree Care work truck">
+      </div>
+    </div>
   </section>
 
   <section class="services" id="services">
