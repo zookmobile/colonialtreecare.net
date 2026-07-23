@@ -16,8 +16,6 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  
-  
   body {
     font-family: 'Georgia', 'Times New Roman', serif;
     background-color: var(--cream-bg);
@@ -192,6 +190,137 @@
     color: #e8efe9;
   }
 
+  /* ---- Reviews carousel section ---- */
+  .reviews-section {
+    padding: 70px 5%;
+    text-align: center;
+    background-color: var(--cream-bg);
+  }
+
+  .reviews-section h2 {
+    color: var(--deep-green);
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+
+  .reviews-section .subhead {
+    color: var(--maroon);
+    font-style: italic;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+  }
+
+  .reviews-container {
+    display: flex;
+    overflow: hidden;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0ddd6;
+    border-radius: 12px;
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .reviews-wrapper {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    width: 96%;
+    margin: 0 auto;
+  }
+  .google-review {
+    border: 1px solid #e0ddd6;
+    padding: 20px;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    word-wrap: break-word;
+    visibility: hidden;
+    text-align: left;
+  }
+  .google-review:first-child {
+    visibility: visible;
+  }
+  .google-review::before, .google-review::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  .google-review:hover::before {
+    box-shadow: inset 0 0 0 2px rgba(31, 92, 67, 0.2);
+  }
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  .reviewer-name {
+    font-weight: bold;
+    color: var(--deep-green);
+  }
+  .review-date {
+    color: #888;
+    font-size: 0.9rem;
+  }
+  .review-rating {
+    color: #ffcc00;
+  }
+  .review-text {
+    font-style: italic;
+    color: #333;
+  }
+  .google-review:hover {
+    background-color: #f5f5f5;
+  }
+  .review-website {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .review-website img {
+    width: 28px;
+    height: 28px;
+  }
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: none;
+    z-index: 1;
+    color: var(--deep-green);
+    font-weight: bold;
+  }
+  .arrow-left {
+    left: 5px;
+  }
+  .arrow-right {
+    right: 5px;
+  }
+  .reviews-container:hover .arrow {
+    display: block;
+  }
+  /* ---- end reviews carousel section ---- */
+
   .cta {
     background-color: var(--cream-bg);
     text-align: center;
@@ -311,6 +440,18 @@
     <p>For years, Colonial Tree Care has been a trusted name in total tree care across the region. Our experienced crews combine careful craftsmanship with modern equipment to keep your property safe, healthy, and beautiful — one tree at a time.</p>
   </section>
 
+  <section class="reviews-section" id="reviews">
+    <h2>What Our Customers Say</h2>
+    <p class="subhead">Real reviews from real Hampton Roads homeowners</p>
+    <div class="reviews-container">
+      <button class="arrow arrow-left" onclick="scrollReviews(-1)">❮</button>
+      <div class="reviews-wrapper" id="reviews-wrapper">
+        <!-- Reviews will be dynamically inserted here -->
+      </div>
+      <button class="arrow arrow-right" onclick="scrollReviews(1)">❯</button>
+    </div>
+  </section>
+
   <section class="cta" id="contact">
     <h2>Ready to Get Started?</h2>
     <p>Contact us today for a free, no-obligation estimate on your next tree care project.</p>
@@ -324,6 +465,83 @@
     <p>Colonial Tree Care · 1756 Mt Pleasant Rd, Chesapeake, VA 23322</p>
     <p>Serving Chesapeake, Norfolk, Virginia Beach, Hampton, Newport News, Suffolk &amp; Portsmouth</p>
   </footer>
+
+  <script>
+    let currentIndex = 0;
+    const reviewsWrapper = document.getElementById('reviews-wrapper');
+
+    function createReviewElement(review) {
+      const stars = '★'.repeat(review.rating);
+      return `
+        <a href="${review.link}" target="_blank" class="google-review">
+          <div class="review-header">
+            <span class="reviewer-name">${review.name}</span>
+            <span class="review-date">${review.date}</span>
+            <span class="review-website">
+              <img src="https://pluspng.com/img-png/google-logo-png-open-2000.png" alt="Google">
+            </span>
+          </div>
+          <div class="review-rating">${stars}</div>
+          <div class="review-text">"${review.text}"</div>
+        </a>
+      `;
+    }
+
+    // Pulls review JSON from your gist
+    fetch('https://gist.githubusercontent.com/zookmobile/78b98008192eaab2a73b11c275644720/raw/72f848b0b9950235957fe91caf6dcef0eb51de92/Colonial.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(reviews => {
+        reviewsWrapper.innerHTML = '';
+        reviews.forEach(review => {
+          reviewsWrapper.insertAdjacentHTML('beforeend', createReviewElement(review));
+        });
+        updateReviewsPosition();
+      })
+      .catch(error => {
+        console.error('Error fetching reviews:', error);
+        reviewsWrapper.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
+      });
+
+    function updateReviewsPosition() {
+      const reviews = reviewsWrapper.querySelectorAll('.google-review');
+      const totalReviews = reviews.length;
+
+      if (totalReviews === 0) return;
+
+      currentIndex = Math.max(0, Math.min(currentIndex, totalReviews - 1));
+
+      const reviewWidth = reviews[0].offsetWidth + parseInt(getComputedStyle(reviews[0]).marginRight);
+      const offset = -currentIndex * reviewWidth;
+      reviewsWrapper.style.transform = `translateX(${offset}px)`;
+
+      reviews.forEach((review, index) => {
+        review.style.visibility = (index === currentIndex) ? 'visible' : 'hidden';
+      });
+
+      const leftArrow = document.querySelector('.arrow-left');
+      const rightArrow = document.querySelector('.arrow-right');
+
+      leftArrow.style.display = currentIndex === 0 ? 'none' : 'block';
+      rightArrow.style.display = currentIndex === totalReviews - 1 ? 'none' : 'block';
+    }
+
+    function scrollReviews(direction) {
+      const totalReviews = reviewsWrapper.querySelectorAll('.google-review').length;
+      currentIndex = Math.max(0, Math.min(currentIndex + direction, totalReviews - 1));
+      updateReviewsPosition();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.arrow-left').style.display = 'none';
+    });
+
+    window.addEventListener('resize', updateReviewsPosition);
+  </script>
 
 </body>
 </html>
