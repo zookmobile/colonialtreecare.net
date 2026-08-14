@@ -44,6 +44,16 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    position: relative;
+  }
+
+  .logo-mark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 64px;
+    width: auto;
   }
 
   .logo-block {
@@ -408,6 +418,7 @@
 
   @media (max-width: 600px) {
     header { flex-direction: column; gap: 15px; }
+    .logo-mark { position: static; transform: none; order: -1; }
     nav ul { gap: 18px; flex-wrap: wrap; justify-content: center; }
     .hero h1 { font-size: 2rem; }
   }
@@ -448,6 +459,7 @@
       <span class="logo-colonial">Colonial</span>
       <span class="logo-tree-care">TREE CARE</span>
     </div>
+    <img src="colonial-tree-mark.png" alt="Colonial Tree Care tree emblem" class="logo-mark">
     <nav>
       <ul>        
         <li><a href="tel:+17572392009" class="btn">Call (757)-239-2009</a></li>
