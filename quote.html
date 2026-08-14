@@ -32,6 +32,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+  }
+  .logo-mark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 52px;
+    width: auto;
+    background: #fff;
+    border-radius: 50%;
+    padding: 4px;
   }
   header .logo {
     font-size: 1.4rem;
@@ -130,6 +142,7 @@
 
 <header>
   <div class="logo">Colonial Tree Care</div>
+  <img src="colonial-tree-mark.png" alt="Colonial Tree Care tree emblem" class="logo-mark">
   <nav>
     <a href="index.html">Home</a>
     <a href="quote.html">Get a Quote</a>
