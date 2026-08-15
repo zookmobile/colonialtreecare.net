@@ -97,6 +97,51 @@
     color: var(--maroon);
   }
 
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-toggle {
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    border: 1px solid #e0ddd6;
+    border-radius: 6px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    min-width: 180px;
+    padding: 8px 0;
+    list-style: none;
+    z-index: 10;
+    gap: 0;
+  }
+
+  .dropdown-menu li {
+    width: 100%;
+  }
+
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 18px;
+    font-weight: normal;
+    letter-spacing: normal;
+    white-space: nowrap;
+  }
+
+  .dropdown-menu a:hover {
+    background-color: var(--cream-bg);
+  }
+
+  .dropdown:hover .dropdown-menu,
+  .dropdown:focus-within .dropdown-menu {
+    display: block;
+  }
+
   .breadcrumb {
     padding: 10px 5%;
     font-size: 0.85rem;
@@ -530,13 +575,20 @@
 <body>
 
   <header>
-    <div class="logo-block">
+    <a href="/" class="logo-block" style="text-decoration: none;">
       <span class="logo-colonial">Colonial</span>
       <span class="logo-tree-care">TREE CARE</span>
-    </div>
-    <img src="/colonial-tree-mark.png" alt="Colonial Tree Care tree emblem" class="logo-mark">
+    </a>
+    <a href="/"><img src="/colonial-tree-mark.png" alt="Colonial Tree Care tree emblem" class="logo-mark"></a>
     <nav>
-      <ul>        
+      <ul>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle">Locations &#9662;</a>
+          <ul class="dropdown-menu">
+            <li><a href="/chesapeake/">Chesapeake</a></li>
+            <!-- Add future city pages here, e.g.: <li><a href="/norfolk/">Norfolk</a></li> -->
+          </ul>
+        </li>
         <li><a href="tel:+17572392009" class="btn">Call (757)-239-2009</a></li>
         <li><a href="/quote.html" class="btn">Get a Quote</a></li>
       </ul>
