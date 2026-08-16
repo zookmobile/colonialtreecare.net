@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Block Thank You page from indexing
+Disallow: /thank-you.html
+Disallow: /thank-you
+
+# Sitemap Location
 Sitemap: https://colonialtreecare.net/sitemap.xml
