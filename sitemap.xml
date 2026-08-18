@@ -4,39 +4,39 @@
   <!-- Homepage -->
   <url>
     <loc>https://colonialtreecare.net/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Service Location Pages -->
   <url>
-    <loc>https://colonialtreecare.net/virginiabeach</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://colonialtreecare.net/virginiabeach/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colonialtreecare.net/portsmouth</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://colonialtreecare.net/portsmouth/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colonialtreecare.net/suffolk</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://colonialtreecare.net/suffolk/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colonialtreecare.net/norfolk</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://colonialtreecare.net/norfolk/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://colonialtreecare.net/chesapeake</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://colonialtreecare.net/chesapeake/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -44,7 +44,7 @@
   <!-- Quote Page -->
   <url>
     <loc>https://colonialtreecare.net/quote.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
