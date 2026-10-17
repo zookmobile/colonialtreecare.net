@@ -162,7 +162,7 @@
     <input type="text" id="name" name="name" required>
 
     <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" required>
+    <input type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="(555) 555-5555" pattern="\(\d{3}\) \d{3}-\d{4}" title="Please enter a 10-digit phone number" required>
 
     <label for="email">Email Address</label>
     <input type="email" id="email" name="email" required>
@@ -210,6 +210,28 @@
   const form = document.getElementById('quoteForm');
   const btn = document.getElementById('submitBtn');
   const confirmation = document.getElementById('confirmation');
+  const phoneInput = document.getElementById('phone');
+
+  // Format phone as (555) 777-8888 while typing or pasting
+  function formatPhone(value) {
+    let digits = value.replace(/\D/g, '');
+    if (digits.length > 10 && digits.charAt(0) === '1') digits = digits.slice(1);
+    digits = digits.slice(0, 10);
+    if (digits.length === 0) return '';
+    if (digits.length < 4) return '(' + digits;
+    if (digits.length < 7) return '(' + digits.slice(0, 3) + ') ' + digits.slice(3);
+    return '(' + digits.slice(0, 3) + ') ' + digits.slice(3, 6) + '-' + digits.slice(6);
+  }
+
+  phoneInput.addEventListener('input', function (e) {
+    // Let backspace remove formatting characters naturally
+    if (e.inputType && e.inputType.indexOf('delete') === 0) return;
+    phoneInput.value = formatPhone(phoneInput.value);
+  });
+
+  phoneInput.addEventListener('blur', function () {
+    phoneInput.value = formatPhone(phoneInput.value);
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
