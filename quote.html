@@ -120,6 +120,7 @@
     transition: background 0.2s;
   }
   button:hover { background: #5e2230; }
+  button:disabled { background: #a5737c; cursor: wait; }
 
   .confirmation {
     display: none;
@@ -156,7 +157,7 @@
 </div>
 
 <div class="form-wrap">
-  <form id="quoteForm" action="https://formspree.io/f/mnjkvkpd" method="POST">
+  <form id="quoteForm">
     <label for="name">Full Name</label>
     <input type="text" id="name" name="name" required>
 
@@ -175,7 +176,7 @@
       <option value="Tree Removal">Tree Removal</option>
       <option value="Tree Trimming/Pruning">Tree Trimming / Pruning</option>
       <option value="Stump Grinding">Stump Grinding</option>
-      <option value="Storm Damage Cleanup">Storm Damage Cleanup</option>
+      <option value="Storm Damage">Storm Damage Cleanup</option>
       <option value="Land Clearing">Land Clearing</option>
       <option value="Other">Other</option>
     </select>
@@ -183,7 +184,7 @@
     <label for="details">Tell us more about the job</label>
     <textarea id="details" name="details" placeholder="Number of trees, size, location on property, etc."></textarea>
 
-    <button type="submit">Request My Free Estimate</button>
+    <button type="submit" id="submitBtn">Request My Free Estimate</button>
   </form>
   <div class="confirmation" id="confirmation">✅ Thanks! Your request has been sent — we'll be in touch soon.</div>
 </div>
@@ -191,6 +192,61 @@
 <footer>
   &copy; 2026 Colonial Tree Care. All Rights Reserved.
 </footer>
+
+<script>
+  // Google Form submission endpoint
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdZuHqy16BlXSouTPWjhPlelAkOlnOkOqS2BOB2DVv5cmli5w/formResponse';
+
+  // Page field id -> Google Form entry ID
+  // REPLACE the numbers below with the entry IDs from the form's pre-filled link
+  const ENTRY_IDS = {
+    name:    'entry.1111111111',
+    phone:   'entry.2222222222',
+    email:   'entry.3333333333',
+    address: 'entry.4444444444',
+    service: 'entry.5555555555',
+    details: 'entry.6666666666'
+  };
+
+  const form = document.getElementById('quoteForm');
+  const btn = document.getElementById('submitBtn');
+  const confirmation = document.getElementById('confirmation');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const data = new URLSearchParams();
+    Object.keys(ENTRY_IDS).forEach(function (field) {
+      data.append(ENTRY_IDS[field], document.getElementById(field).value.trim());
+    });
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    // Google Forms doesn't allow cross-origin reads, so no-cors is required;
+    // the response is opaque, so a resolved request is treated as success.
+    fetch(GOOGLE_FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: data
+    })
+    .then(function () {
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          form_name: 'quote_form',
+          service: document.getElementById('service').value
+        });
+      }
+      form.style.display = 'none';
+      confirmation.style.display = 'block';
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = 'Request My Free Estimate';
+      alert('Sorry, something went wrong sending your request. Please try again or give us a call.');
+    });
+  });
+</script>
 
 </body>
 </html>
